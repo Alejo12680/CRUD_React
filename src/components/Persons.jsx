@@ -52,6 +52,16 @@ export const Persons = ({ persons, setPersons }) => {
     setPersonToDelete(null)
   }
 
+  // Funcion para crear una persona
+  const handleCreate = (e) => {
+    setPersons([...persons, {id: persons.length +1, ...editedPerson}]);
+    setEditedPerson({
+      name: '',
+      role: '',
+      img: '',
+    })
+  }
+
   // Funcion del hijo
   const handleEdit = (id) => {
     // Establece el Id de la paersona que queremos editar
@@ -75,8 +85,8 @@ export const Persons = ({ persons, setPersons }) => {
   return (
     <div>
       <h2>TEAM IT</h2>
-      <div className='container d-flex justify-content-center'>
-        <div className='d-flex flex-row'>
+      <div className='container'>
+        <div className='row d-flex flex-wrap row-cols-1 row-cols-md-2 row-cols-lg-3'>
           {persons.map((person) => {
             return (
               <div key={person.id}>
@@ -96,9 +106,10 @@ export const Persons = ({ persons, setPersons }) => {
       </div>
       <br />
       <hr />
+      {/* Renderiza el formulario para editar o crear una persona */}
       <div className='mt-4 row p-2'>
         {/* El input debe traerme los datos de las personas editadas */}
-        <h2>Modificar Datos</h2>
+        <h2>{isEditing ? 'Modificar Datos' : 'Crear Nueva Persona'} </h2>
         <input type="text" name='name' value={editedPerson.name} onChange={handleChange} placeholder='Nombre' className='form-control mb-2' />
 
         <input type="text" name='role' value={editedPerson.role} onChange={handleChange} placeholder='Rol' className='form-control mb-2' />
@@ -106,7 +117,7 @@ export const Persons = ({ persons, setPersons }) => {
         <input type="text" name='img' value={editedPerson.img} onChange={handleChange} placeholder='URL de la imagen' className='form-control mb-2' />
 
         <div className='mt-2'>
-          <button className='btn btn-primary' onClick={handleSave}>Guardar</button>
+          <button className='btn btn-primary' onClick={isEditing ? handleSave : handleCreate}>{isEditing ? 'Guardar': 'Crear' } </button>
         </div>
       </div>
 
