@@ -38,7 +38,18 @@ export const Persons = ({ persons, setPersons }) => {
     });
     // Desactivar el estado de edicion
     setIsEditing(false);
+  }
 
+  // Confirmacion de Delete en el Modal
+  const confirmDelete = (e) => {
+    // Activamos el estado de delete
+    setPersons(persons.filter(person => person.id !== personToDelete));
+    setPersonToDelete(null)
+  }
+
+  // funcion de Cancelar en Modal
+  const cancelDelete = () => {
+    setPersonToDelete(null)
   }
 
   // Funcion del hijo
@@ -57,9 +68,8 @@ export const Persons = ({ persons, setPersons }) => {
     // Establece el Id de la paersona que queremos eliminar
     setPersonToDelete(id);
     // Activamos el estado de delete
-    const updatePersons = persons.filter(person => person.id !== id);
-    setPersons(updatePersons);
-
+    /* const updatePersons = persons.filter(person => person.id !== id);
+    setPersons(updatePersons); */
   }
 
   return (
@@ -98,6 +108,28 @@ export const Persons = ({ persons, setPersons }) => {
         <div className='mt-2'>
           <button className='btn btn-primary' onClick={handleSave}>Guardar</button>
         </div>
+      </div>
+
+      {/* Modal de confirmacion de Delete */}
+      <div id='deleteModal' className='modal fade' tabIndex={-1}>
+          <div className='modal-dialog'>
+            <div className='modal-content'>
+              <div className='modal-header'>
+                <h4 className='modal-title'>Confirmar Eliminación</h4>
+                <button type='button' className='btn-close' data-bs-dismiss aria-label='Close' onClick={cancelDelete}></button>
+              </div>
+
+              <div className='modal-body'>
+                <p>Estas Seguro de Eliminar a {persons.find(person => person.id === personToDelete)?.name} </p>
+              </div>
+
+              <div className='modal-footer'>
+                <button type='button' className='btn btn-secondary' data-bs-dismiss='modal' onClick={cancelDelete}> Cancelar</button>
+
+                <button type='button' className='btn btn-danger' data-bs-dismiss='modal' onClick={confirmDelete}>Eliminar</button>
+              </div>
+            </div>
+          </div>
       </div>
     </div>
   )

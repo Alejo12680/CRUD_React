@@ -14,7 +14,7 @@ export const Person = ({id, name, role, img, handleEdit, handleDelete}) => {
 					<div className='mb-4'>
 						{/* Estas funciones se hacen en el padre 'Persons' y se envian al hijo */}
 						<button onClick={handleEdit} className='btn btn-success me-2'>Editar</button>
-						<button onClick={() => handleDelete(id)} className='btn btn-danger'>Eliminar</button>
+						<button onClick={() => handleDelete(id)} className='btn btn-danger' data-bs-toggle='modal' data-bs-target='#deleteModal' >Eliminar</button>
 					</div>
 				</div>
 			</div>
