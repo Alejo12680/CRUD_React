@@ -14,6 +14,7 @@ export const Persons = ({ persons, setPersons }) => {
   });
 
   const [isEditing, setIsEditing] = useState(false);
+  const [personToDelete, setPersonToDelete] =useState(null);
 
   //Funciones handle
   const handleChange = (e) => {
@@ -52,6 +53,15 @@ export const Persons = ({ persons, setPersons }) => {
     setEditedPerson({ ...personToEdit });
   }
 
+  const handleDelete = (id) => {
+    // Establece el Id de la paersona que queremos eliminar
+    setPersonToDelete(id);
+    // Activamos el estado de delete
+    const updatePersons = persons.filter(person => person.id !== id);
+    setPersons(updatePersons);
+
+  }
+
   return (
     <div>
       <h2>TEAM IT</h2>
@@ -59,14 +69,16 @@ export const Persons = ({ persons, setPersons }) => {
         <div className='d-flex flex-row'>
           {persons.map((person) => {
             return (
-              <div>
+              <div key={person.id}>
                 {/* HIJO  (siempre que se trabaje con .map se maneja key*/}
                 <Person
-                  key={person.id}
+                  id={person.id}
                   name={person.name}
                   role={person.role}
                   img={person.img}
-                  handleEdit={() => handleEdit(person.id)} />
+                  handleEdit={() => handleEdit(person.id)} 
+                  handleDelete={handleDelete}
+                  />
               </div>
             )
           })}

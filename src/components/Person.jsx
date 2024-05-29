@@ -1,7 +1,7 @@
 import React from 'react'
 
 // Desustrucracion
-export const Person = ({id, name, role, img, handleEdit}) => {
+export const Person = ({id, name, role, img, handleEdit, handleDelete}) => {
 	return (
 		<div>
 			<div className='col'>
@@ -14,7 +14,7 @@ export const Person = ({id, name, role, img, handleEdit}) => {
 					<div className='mb-4'>
 						{/* Estas funciones se hacen en el padre 'Persons' y se envian al hijo */}
 						<button onClick={handleEdit} className='btn btn-success me-2'>Editar</button>
-						<button className='btn btn-danger'>Eliminar</button>
+						<button onClick={() => handleDelete(id)} className='btn btn-danger'>Eliminar</button>
 					</div>
 				</div>
 			</div>
